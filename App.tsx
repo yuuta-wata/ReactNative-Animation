@@ -5,11 +5,23 @@ import {
   View,
   TouchableOpacity,
   Animated,
-  Image,
 } from "react-native";
 
 export default function App() {
   const animation = useRef(new Animated.Value(1)).current;
+
+  const endHeartAnimation = (endResult: Animated.EndResult) => {
+    const { finished } = endResult;
+
+    if (finished) {
+      Animated.timing(animation, {
+        toValue: 1,
+        delay: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
 
   const startAnimation = () => {
     Animated.timing(animation, {
@@ -17,16 +29,7 @@ export default function App() {
       delay: 0,
       duration: 100,
       useNativeDriver: true,
-    }).start(({ finished }) => {
-      if (finished) {
-        Animated.timing(animation, {
-          toValue: 1,
-          delay: 0,
-          duration: 100,
-          useNativeDriver: true,
-        }).start();
-      }
-    });
+    }).start(endHeartAnimation);
   };
 
   return (
