@@ -23,7 +23,7 @@ export default function App() {
     }
   };
 
-  const startAnimation = () => {
+  const startHeartAnimation = () => {
     Animated.timing(animation, {
       toValue: 0.8,
       delay: 0,
@@ -35,7 +35,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Heart animation!</Text>
-      <TouchableOpacity style={styles.heartButton} onPress={startAnimation}>
+      <TouchableOpacity
+        style={styles.heartButton}
+        onPress={startHeartAnimation}
+      >
         <Animated.Image
           style={
             (styles.heart,
