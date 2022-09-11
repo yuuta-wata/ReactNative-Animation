@@ -1,55 +1,24 @@
-import React, { useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Animated,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Gift } from "./components/Gift";
+
+import { Heart } from "./components/Heart";
 
 export default function App() {
-  const animation = useRef(new Animated.Value(1)).current;
-
-  const endHeartAnimation = (endResult: Animated.EndResult) => {
-    const { finished } = endResult;
-
-    if (finished) {
-      Animated.timing(animation, {
-        toValue: 1,
-        delay: 0,
-        duration: 100,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-
-  const startHeartAnimation = () => {
-    Animated.timing(animation, {
-      toValue: 0.8,
-      delay: 0,
-      duration: 100,
-      useNativeDriver: true,
-    }).start(endHeartAnimation);
-  };
-
   return (
     <View style={styles.container}>
       <Text>Heart animation!</Text>
-      <TouchableOpacity
-        style={styles.heartButton}
-        onPress={startHeartAnimation}
+      <Heart />
+      <Text>Svg animation!</Text>
+      <View
+        style={{
+          backgroundColor: "pink",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        <Animated.Image
-          style={
-            (styles.heart,
-            {
-              transform: [{ scale: animation }],
-            })
-          }
-          source={require("./assets/heart.png")}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+        <Gift />
+      </View>
     </View>
   );
 }
@@ -60,15 +29,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  heartButton: {
-    // width: 50,
-    // height: 50,
-    // backgroundColor: "pink",
-  },
-  heart: {
-    width: 50,
-    height: 50,
-    top: 0,
   },
 });
